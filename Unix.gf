@@ -3,13 +3,13 @@ abstract Unix = {
   flags startcat = Command ;
 
   cat
-    Command ; Input ;
+    Command ; Option ;
 
   fun
 --   pipe : Command -> Command -> Command ;
 --    grepWhat : Input -> Action -> Command ;
-    ls : Input -> Command ;
-    all, thisDir : Input ;
+    ls : Option -> Command ;
+    all, thisDir : Option ;
 
 --    grep : Command ;
 --    search_term : Input ;

@@ -1,7 +1,7 @@
 concrete UnixCmd of Unix = open Prelude in {
   lincat
     Command = SS;
-    Input = Str;
+    Option = Str;
   lin
     --grep search_term =
     --  { s = "find " ++ search_term } ;

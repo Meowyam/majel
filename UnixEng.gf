@@ -1,10 +1,10 @@
 concrete UnixEng of Unix = open SyntaxEng,ParadigmsEng in {
   lincat
     Command = Imp;
-    Input = NP;
+    Option = NP;
   lin
     ls x = mkImp (mkVP (mkV2 "list") x);
-    thisDir = mkNP (mkN "this directory") ;
+    thisDir = mkNP (mkN "contents of this directory") ;
     all = mkNP (mkN "all") ;
 
 --  grepWhat grep search_term = mkCl
