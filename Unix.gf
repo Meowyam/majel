@@ -3,7 +3,7 @@ abstract Unix = {
   flags startcat = Command ;
 
   cat
-    Command ; [Command]{0} ;
+    Command ; [Command]{1} ;
     Option ;
     Flag ; [Flag]{0} ;
     Path ;
@@ -21,6 +21,7 @@ abstract Unix = {
     all : Flag ;
     long : Flag ;
     thisDir : Path ;
+    home : Path ;
     cd : Path -> Command ;
     pipe : [Command] -> Command;
 --    search_term : Input ;

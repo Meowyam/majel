@@ -19,7 +19,7 @@ gr = pgf.readPGF("Unix.pgf")
 eng = gr.languages["UnixEng"]
 cmd = gr.languages["UnixCmd"]
 
-with open('test.sh') as test:
+with open('test.sh', encoding='utf-8') as test:
   testInput = ' '.join(test.readlines()[2:])
 
 i = cmd.parse(testInput)
@@ -35,6 +35,10 @@ inWords = gTTS(text=inEng, lang='en', slow=False)
 inWords.save(outputmp3)
 playsound.playsound(outputmp3)
 os.remove(outputmp3)
+
+# run the command
+print(testInput)
+subprocess.call(testInput.split())
 
 # with mic as source:
 #   r.adjust_for_ambient_noise(source)

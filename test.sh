@@ -1,3 +1,3 @@
 #!/bin/sh
 
-ls -a
+ls -a -l

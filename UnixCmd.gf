@@ -14,6 +14,7 @@ concrete UnixCmd of Unix = open Prelude in {
     all = {s = "-a"} ;
     long = {s = "-l"} ;
     thisDir = {s = "."} ;
+    home = {s = "~"};
     cd x = {s = "cd" ++ x.s} ;
     pipe x = {s = x.s} ;
     --pipe x y = {s = x.s ++ "|" ++ y.s} ;
@@ -21,12 +22,13 @@ concrete UnixCmd of Unix = open Prelude in {
     BaseFlag = {s = []; isEmpty = Empty} ;
     ConsFlag f fs = {s = f.s ++ fs.s; isEmpty = NonEmpty} ;
 
-    BaseCommand = {s = []; isEmpty = Empty} ;
+    BaseCommand f = {s = f.s; isEmpty = Empty} ;
     ConsCommand f fs =
       let sep : Str = case fs.isEmpty of {
         Empty => [] ;
         NonEmpty => " | " };
       in {s = f.s ++ sep ++ fs.s ; isEmpty = NonEmpty} ;
+
 
 
     --todo: -al instead of -a -l
