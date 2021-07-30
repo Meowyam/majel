@@ -1,11 +1,34 @@
-concrete UnixEng of Unix = open SyntaxEng,ParadigmsEng in {
+concrete UnixEng of Unix = open Prelude in {
   lincat
-    Command = Imp;
-    Option = NP;
+    Command = {s: Str};
+    Path, Flag = {s : Str};
+    [Flag] = {s : Str; isEmpty : IsEmpty};
+    [Command] = {s : Str; isEmpty : IsEmpty};
+  param
+    IsEmpty = Empty | NonEmpty ;
   lin
-    ls x = mkImp (mkVP (mkV2 "list") x);
-    thisDir = mkNP (mkN "contents of this directory") ;
-    all = mkNP (mkN "all") ;
+    addFlag c f = {s = c.s ++ f.s} ;
+    ls = {s = "list"} ;
+    all = {s = "all"} ;
+    long = {s = "long listing"} ;
+    thisDir = {s = "this directory"} ;
+    cd x = {s = "change directory to " ++ x.s} ;
+    pipe x = {s = x.s} ;
+
+    BaseFlag = {s = [] ; isEmpty = Empty} ;
+    ConsFlag f fs =
+      let sep : Str = case fs.isEmpty of {
+        Empty => [] ;
+        NonEmpty => " and " };
+      in {s = f.s ++ sep ++ fs.s ; isEmpty = NonEmpty} ;
+
+    BaseCommand = {s = []; isEmpty = Empty} ;
+    ConsCommand f fs =
+      let sep : Str = case fs.isEmpty of {
+        Empty => [] ;
+        NonEmpty => "then" };
+      in {s = f.s ++ sep ++ fs.s ; isEmpty = NonEmpty} ;
+
 
 --  grepWhat grep search_term = mkCl
 --        grep search_term ;

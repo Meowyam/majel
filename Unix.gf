@@ -3,14 +3,25 @@ abstract Unix = {
   flags startcat = Command ;
 
   cat
-    Command ; Option ;
+    Command ; [Command]{0} ;
+    Option ;
+    Flag ; [Flag]{0} ;
+    Path ;
+
+-- [Flag]{1} generates
+-- BaseFlag : Flag -> ListFlag
+-- ConsFlag : Flag -> ListFlag -> ListFlag
 
   fun
 --   pipe : Command -> Command -> Command ;
 --    grepWhat : Input -> Action -> Command ;
-    ls : Option -> Command ;
-    all, thisDir : Option ;
+    addFlag : Command -> [Flag] -> Command;
 
---    grep : Command ;
+    ls : Command ;
+    all : Flag ;
+    long : Flag ;
+    thisDir : Path ;
+    cd : Path -> Command ;
+    pipe : [Command] -> Command;
 --    search_term : Input ;
 }

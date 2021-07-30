@@ -1,15 +1,36 @@
 concrete UnixCmd of Unix = open Prelude in {
   lincat
-    Command = SS;
-    Option = Str;
+    Command = {s : Str};
+    Path, Command, Flag = {s : Str};
+    [Flag] = {s : Str; isEmpty : IsEmpty};
+    [Command] = {s : Str; isEmpty : IsEmpty};
+  param
+    IsEmpty = Empty | NonEmpty ;
   lin
     --grep search_term =
     --  { s = "find " ++ search_term } ;
-    ls x = {s = "ls " ++ x } ;
-    all = "-a" ;
-    thisDir = "." ;
-    --pipe cmd1 cmd2 = multi cmd1 cmd2;
+    addFlag c f = {s = c.s ++ f.s} ;
+    ls = {s = "ls"} ;
+    all = {s = "-a"} ;
+    long = {s = "-l"} ;
+    thisDir = {s = "."} ;
+    cd x = {s = "cd" ++ x.s} ;
+    pipe x = {s = x.s} ;
+    --pipe x y = {s = x.s ++ "|" ++ y.s} ;
 
+    BaseFlag = {s = []; isEmpty = Empty} ;
+    ConsFlag f fs = {s = f.s ++ fs.s; isEmpty = NonEmpty} ;
+
+    BaseCommand = {s = []; isEmpty = Empty} ;
+    ConsCommand f fs =
+      let sep : Str = case fs.isEmpty of {
+        Empty => [] ;
+        NonEmpty => " | " };
+      in {s = f.s ++ sep ++ fs.s ; isEmpty = NonEmpty} ;
+
+
+    --todo: -al instead of -a -l
+    --pipe cmd1 cmd2 = multi cmd1 cmd2;
     --search_term = "string" ;
 --   oper
 --     multi : SS -> SS -> SS = \x,y -> ss("first " ++ x.s ++ " then " ++ y.s);
